@@ -1,6 +1,10 @@
 using System.Text;
+using Message_Api.Core.Interfaces;
+using Message_Api.Core.Services;
 using Message_Api.Core.Services.Jwt;
 using Message_Api.Data;
+using Message_Api.Data.Interfaces;
+using Message_Api.Data.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -36,7 +40,10 @@ builder.Services.AddDbContext<MessageDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<JwtService>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
 
+builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -72,12 +79,14 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
+app.UseRouting();
 app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "Message Api");
     c.RoutePrefix = string.Empty;
 });
+app.MapControllers();
 app.UseAuthentication();
 app.UseAuthentication();
 app.Run();
