@@ -1,5 +1,6 @@
 using Message_Api.Data.Interfaces;
 using Message_Api.Data.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Message_Api.Data.Repositories
 {
@@ -17,5 +18,8 @@ namespace Message_Api.Data.Repositories
             await _context.SaveChangesAsync();
             return user;
         }
+
+        public async Task<bool> TagExistsAsync(string tag) =>
+            await _context.Users.AnyAsync(u => u.Tag == tag);
     }
 }

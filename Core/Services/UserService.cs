@@ -1,4 +1,5 @@
 using Message_Api.Core.Interfaces;
+using Message_Api.Core.Services.TagGenerator;
 using Message_Api.Data.Dtos;
 using Message_Api.Data.Interfaces;
 using Message_Api.Data.Models;
@@ -22,11 +23,15 @@ namespace Message_Api.Core.Services
 
             var hashedPassword = BCrypt.Net.BCrypt.HashPassword(dto.Password);
 
+            var tagGenerator = new TagGeneratorService(_userRepo);
+            var uniqueTag = await tagGenerator.GenerateUniqueTag();
+
             var user = new User
             {
                 User_Name = dto.UserName,
                 Email = dto.Email,
-                Password = hashedPassword
+                Password = hashedPassword,
+                Tag = uniqueTag
             };
 
             await _userRepo.AddUserAsync(user);
@@ -34,6 +39,7 @@ namespace Message_Api.Core.Services
             return new UserRegisterResponseDto
             {
                 Message = "Registration successfull, welcome to Message!",
+                Tag = user.Tag,
                 UserName = user.User_Name,
                 Email = user.Email
             };

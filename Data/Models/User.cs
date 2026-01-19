@@ -10,6 +10,7 @@ namespace Message_Api.Data.Models
         public string User_Name { get; set; } = null!;
         public string Password { get; set; } = null!;
         public string Email { get; set; } = null!;
+        public string Tag { get; set; } = null!;
 
         public ICollection<Friendship> Friendships { get; set; } = new List<Friendship>();
         public ICollection<Friendship> FriendsOf { get; set; } = new List<Friendship>();
