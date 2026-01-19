@@ -14,4 +14,15 @@ namespace Message_Api.Data.Dtos
         public string UserName { get; set; } = null!;
         public string Email { get; set; } = null!;
     }
+
+    public class UserLoginRequestDto
+    {
+        public string UserName { get; set; } = null!;
+        public string Password { get; set; } = null!;
+    }
+
+    public class UserLoginResponseDto
+    {
+        public string AccessKey { get; set; } = null!;
+    }
 }

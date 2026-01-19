@@ -21,5 +21,8 @@ namespace Message_Api.Data.Repositories
 
         public async Task<bool> TagExistsAsync(string tag) =>
             await _context.Users.AnyAsync(u => u.Tag == tag);
+
+        public async Task<User?> GetUserByUserNameAsync(string userName) =>
+            await _context.Users.FirstOrDefaultAsync(u => u.User_Name == userName);
     }
 }

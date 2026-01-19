@@ -39,5 +39,28 @@ namespace Message_Api.Controllers
                 return StatusCode(500, "Something went wrong.");
             }
         }
+
+        [AllowAnonymous]
+        [HttpPost("login")]
+        public async Task<ActionResult<UserLoginResponseDto>> LoginUser(UserLoginRequestDto dto)
+        {
+            try
+            {
+                var result = await _userService.LoginUserAsync(dto);
+
+                _logger.LogInformation("Login successfull.");
+                return Ok(result);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Unauthorized(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Something went wrong while logging in.");
+                return StatusCode(500, "Something went wrong.");
+            }
+
+        }
     }
 }

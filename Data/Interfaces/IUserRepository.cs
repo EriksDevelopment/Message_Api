@@ -7,5 +7,7 @@ namespace Message_Api.Data.Interfaces
         Task<User?> AddUserAsync(User user);
 
         Task<bool> TagExistsAsync(string tag);
+
+        Task<User?> GetUserByUserNameAsync(string userName);
     }
 }
