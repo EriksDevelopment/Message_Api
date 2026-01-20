@@ -13,5 +13,7 @@ namespace Message_Api.Data.Interfaces
         Task<User?> GetFriendByTagAsync(string tag);
 
         Task<User?> GetUserByIdAsync(int id);
+
+        Task<List<User>> GetFriendsByIdAsync(int userId);
     }
 }

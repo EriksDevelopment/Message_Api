@@ -66,5 +66,17 @@ namespace Message_Api.Core.Services
                 AccessKey = token
             };
         }
+
+        public async Task<List<ViewFriendsResponseDto>> ViewFriendsAsync(int userId)
+        {
+            var friends = await _userRepo.GetFriendsByIdAsync(userId);
+            if (friends == null)
+                throw new ArgumentException("Oops... No friends found.");
+
+            return friends.Select(f => new ViewFriendsResponseDto
+            {
+                UserName = f.User_Name
+            }).ToList();
+        }
     }
 }

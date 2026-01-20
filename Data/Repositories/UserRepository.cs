@@ -30,5 +30,16 @@ namespace Message_Api.Data.Repositories
 
         public async Task<User?> GetUserByIdAsync(int id) =>
             await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
+
+        public async Task<List<User>> GetFriendsByIdAsync(int userId)
+        {
+            var friends = await _context.Friendships
+                .Where(f => f.UserId == userId)
+                .Include(f => f.Friend)
+                .Select(f => f.Friend)
+                .ToListAsync();
+
+            return friends;
+        }
     }
 }

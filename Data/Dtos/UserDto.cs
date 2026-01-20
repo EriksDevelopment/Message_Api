@@ -25,4 +25,9 @@ namespace Message_Api.Data.Dtos
     {
         public string AccessKey { get; set; } = null!;
     }
+
+    public class ViewFriendsResponseDto
+    {
+        public string UserName { get; set; } = null!;
+    }
 }

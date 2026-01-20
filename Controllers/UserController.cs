@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Message_Api.Core.Interfaces;
 using Message_Api.Data.Dtos;
 using Microsoft.AspNetCore.Authorization;
@@ -60,6 +61,30 @@ namespace Message_Api.Controllers
                 return StatusCode(500, "Something went wrong.");
             }
 
+        }
+
+        [Authorize(Roles = "User")]
+        [HttpGet("view-friends")]
+        public async Task<ActionResult<ViewFriendsResponseDto>> ViewFriends()
+        {
+            try
+            {
+                var user = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+
+                var result = await _userService.ViewFriendsAsync(user);
+
+                _logger.LogInformation("All friends retrieved successfully.");
+                return Ok(result);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Something went wrong while retireving all friend.");
+                return StatusCode(500, "Something went wrong.");
+            }
         }
     }
 }

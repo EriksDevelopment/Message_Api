@@ -7,5 +7,7 @@ namespace Message_Api.Core.Interfaces
         Task<UserRegisterResponseDto> AddUserAsync(UserRegisterRequestDto dto);
 
         Task<UserLoginResponseDto> LoginUserAsync(UserLoginRequestDto dto);
+
+        Task<List<ViewFriendsResponseDto>> ViewFriendsAsync(int userId);
     }
 }
