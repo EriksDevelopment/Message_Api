@@ -44,6 +44,12 @@ namespace Message_Api.Data.Repositories
 
         public async Task<User> DeleteUserAsync(User user)
         {
+            var friendRequests = await _context.FriendRequests
+                .Where(fr => fr.SenderId == user.Id || fr.RecieverId == user.Id)
+                .ToListAsync();
+
+            _context.FriendRequests.RemoveRange(friendRequests);
+
             var friendships = await _context.Friendships
                 .Where(f => f.UserId == user.Id || f.FriendId == user.Id)
                 .ToListAsync();

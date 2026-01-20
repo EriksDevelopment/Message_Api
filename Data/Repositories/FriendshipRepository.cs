@@ -1,3 +1,4 @@
+using Message_Api.Core.Interfaces;
 using Message_Api.Data.Interfaces;
 using Message_Api.Data.Models;
 using Microsoft.EntityFrameworkCore;

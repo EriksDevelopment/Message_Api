@@ -12,6 +12,9 @@ namespace Message_Api.Data.Models
         public string Email { get; set; } = null!;
         public string Tag { get; set; } = null!;
 
+        public ICollection<FriendRequest> SentFriendRequests { get; set; } = new List<FriendRequest>();
+        public ICollection<FriendRequest> ReceivedFriendRequests { get; set; } = new List<FriendRequest>();
+
         public ICollection<Friendship> Friendships { get; set; } = new List<Friendship>();
         public ICollection<Friendship> FriendsOf { get; set; } = new List<Friendship>();
 

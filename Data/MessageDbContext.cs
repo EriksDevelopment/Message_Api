@@ -9,6 +9,7 @@ namespace Message_Api.Data
             : base(options) { }
 
         public DbSet<User> Users { get; set; } = null!;
+        public DbSet<FriendRequest> FriendRequests { get; set; } = null!;
         public DbSet<Friendship> Friendships { get; set; } = null!;
         public DbSet<Message> Messages { get; set; } = null!;
         public DbSet<Conversation> Conversations { get; set; } = null!;
@@ -34,6 +35,22 @@ namespace Message_Api.Data
 
             modelBuilder.Entity<Friendship>()
                 .HasIndex(f => new { f.UserId, f.FriendId })
+                .IsUnique();
+
+            modelBuilder.Entity<FriendRequest>()
+                .HasOne(fr => fr.Sender)
+                .WithMany(u => u.SentFriendRequests)
+                .HasForeignKey(fr => fr.SenderId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<FriendRequest>()
+                .HasOne(fr => fr.Reciever)
+                .WithMany(u => u.ReceivedFriendRequests)
+                .HasForeignKey(fr => fr.RecieverId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<FriendRequest>()
+                .HasIndex(fr => new { fr.SenderId, fr.RecieverId })
                 .IsUnique();
 
             modelBuilder.Entity<Message>()

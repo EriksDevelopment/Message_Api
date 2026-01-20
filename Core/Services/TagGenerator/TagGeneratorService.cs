@@ -53,4 +53,30 @@ namespace Message_Api.Core.Services.TagGenerator
             return tag;
         }
     }
+
+    public class FriendRequestTagGeneratorService
+    {
+        private readonly IFriendRequestRepository _friendRequestRepo;
+        public FriendRequestTagGeneratorService(IFriendRequestRepository friendRequestRepo)
+        {
+            _friendRequestRepo = friendRequestRepo;
+        }
+
+        private string GenerateRandomFriendRequestTag()
+        {
+            var random = new Random();
+            return $"#{random.Next(1000000, 9999999)}";
+        }
+
+        public async Task<string> GenerateUniqueFriendRequestTag()
+        {
+            string tag;
+            do
+            {
+                tag = GenerateRandomFriendRequestTag();
+            } while (await _friendRequestRepo.TagExistsAsync(tag));
+
+            return tag;
+        }
+    }
 }
