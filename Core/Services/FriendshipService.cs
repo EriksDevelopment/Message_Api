@@ -1,6 +1,7 @@
 using Message_Api.Core.Interfaces;
 using Message_Api.Data.Dtos;
 using Message_Api.Data.Interfaces;
+using Message_Api.Data.Models;
 
 namespace Message_Api.Core.Services
 {
@@ -26,6 +27,9 @@ namespace Message_Api.Core.Services
             var currentUser = await _userRepo.GetUserByIdAsync(userId);
             if (currentUser == null)
                 throw new ArgumentException("Current user not found.");
+
+            if (currentUser.Id == friend.Id)
+                throw new ArgumentException("You cannot add yourself as friend.");
 
             if (await _friendshipRepo.AlreadyFriendsAsync(userId, friend.Id))
                 throw new ArgumentException("User is already your friend.");
