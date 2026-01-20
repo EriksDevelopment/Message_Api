@@ -12,15 +12,21 @@ namespace Message_Api.Data.Repositories
             _context = context;
         }
 
-        public async Task<List<Message>> GetMessageBySenderIdAsync(int senderId)
+        public async Task<List<Message>> GetReceivedMessagesAsync(int receiverId)
         {
             var message = await _context.Messages
-                .Where(m => m.SenderId == senderId)
+                .Where(m => m.RecieverId == receiverId)
                 .Include(m => m.Sender)
                 .OrderByDescending(m => m.Timestamp)
                 .ToListAsync();
 
             return message;
+        }
+
+        public async Task SendMessageAsync(Message message)
+        {
+            _context.Messages.Add(message);
+            await _context.SaveChangesAsync();
         }
     }
 }

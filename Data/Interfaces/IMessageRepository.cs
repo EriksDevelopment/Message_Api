@@ -4,6 +4,7 @@ namespace Message_Api.Data.Interfaces
 {
     public interface IMessageRepository
     {
-        Task<List<Message>> GetMessageBySenderIdAsync(int senderId);
+        Task<List<Message>> GetReceivedMessagesAsync(int receiverId);
+        Task SendMessageAsync(Message message);
     }
 }
