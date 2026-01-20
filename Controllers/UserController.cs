@@ -2,7 +2,6 @@ using Message_Api.Core.Interfaces;
 using Message_Api.Data.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace Message_Api.Controllers
 {

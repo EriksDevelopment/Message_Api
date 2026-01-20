@@ -1,5 +1,4 @@
 using Message_Api.Data.Interfaces;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Message_Api.Core.Services.TagGenerator
 {

@@ -4,7 +4,6 @@ using Message_Api.Core.Services.TagGenerator;
 using Message_Api.Data.Dtos;
 using Message_Api.Data.Interfaces;
 using Message_Api.Data.Models;
-using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace Message_Api.Core.Services
 {
