@@ -26,14 +26,14 @@ namespace Message_Api.Core.Services
             _conversationTagGenerator = conversationTagGenerator;
         }
 
-        public async Task<List<ViewRecievedMessagesResponseDto>> GetRecievedMessagesAsync(int recievedId)
+        public async Task<List<AllMessagesResponseDto>> GetRecievedMessagesAsync(int recievedId)
         {
-            var messages = await _messageRepo.GetReceivedMessagesAsync(recievedId);
+            var messages = await _messageRepo.GetMessagesAsync(recievedId);
 
             if (!messages.Any())
                 throw new InvalidOperationException("No messages recieved.");
 
-            return messages.Select(m => new ViewRecievedMessagesResponseDto
+            return messages.Select(m => new AllMessagesResponseDto
             {
                 ConversationTag = m.Conversation.ConversationTag,
                 Timestamp = m.Timestamp,

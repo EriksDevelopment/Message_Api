@@ -4,7 +4,7 @@ namespace Message_Api.Core.Interfaces
 {
     public interface IMessageService
     {
-        Task<List<ViewRecievedMessagesResponseDto>> GetRecievedMessagesAsync(int recieverId);
+        Task<List<AllMessagesResponseDto>> GetRecievedMessagesAsync(int recieverId);
 
         Task<SendMessageResponseDto> SendMessageAsync(int senderId, string friendUsername, string content);
     }

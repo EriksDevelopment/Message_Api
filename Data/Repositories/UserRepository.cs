@@ -47,9 +47,20 @@ namespace Message_Api.Data.Repositories
             var friendships = await _context.Friendships
                 .Where(f => f.UserId == user.Id || f.FriendId == user.Id)
                 .ToListAsync();
-
             _context.Friendships.RemoveRange(friendships);
+
+            var messages = await _context.Messages
+                .Where(m => m.SenderId == user.Id || m.RecieverId == user.Id)
+                .ToListAsync();
+            _context.Messages.RemoveRange(messages);
+
+            var conversations = await _context.Conversations
+                .Where(c => c.UserAId == user.Id || c.UserBId == user.Id)
+                .ToListAsync();
+            _context.Conversations.RemoveRange(conversations);
+
             _context.Users.Remove(user);
+
             await _context.SaveChangesAsync();
             return user;
         }

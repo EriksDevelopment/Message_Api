@@ -14,5 +14,8 @@ namespace Message_Api.Data.Models
 
         public ICollection<Friendship> Friendships { get; set; } = new List<Friendship>();
         public ICollection<Friendship> FriendsOf { get; set; } = new List<Friendship>();
+
+        public ICollection<Conversation> ConversationsAsUserA { get; set; } = new List<Conversation>();
+        public ICollection<Conversation> ConversationsAsUserB { get; set; } = new List<Conversation>();
     }
 }

@@ -12,7 +12,7 @@ namespace Message_Api.Data.Repositories
             _context = context;
         }
 
-        public async Task<List<Message>> GetReceivedMessagesAsync(int receiverId)
+        public async Task<List<Message>> GetMessagesAsync(int receiverId)
         {
             var message = await _context.Messages
                 .Where(m => m.RecieverId == receiverId)

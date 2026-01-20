@@ -1,6 +1,6 @@
 namespace Message_Api.Data.Dtos
 {
-    public class ViewRecievedMessagesResponseDto
+    public class AllMessagesResponseDto
     {
         public string ConversationTag { get; set; } = null!;
         public DateTime Timestamp { get; set; }

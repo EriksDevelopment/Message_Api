@@ -19,8 +19,8 @@ namespace Message_Api.Controllers
         }
 
         [Authorize(Roles = "User")]
-        [HttpGet("recieved-messages")]
-        public async Task<ActionResult<ViewRecievedMessagesResponseDto>> GetRecievedMessages()
+        [HttpGet("all-messages")]
+        public async Task<ActionResult<AllMessagesResponseDto>> GetRecievedMessages()
         {
             try
             {

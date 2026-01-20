@@ -18,19 +18,19 @@ namespace Message_Api.Data
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Friendship>()
-                .HasKey(f => new { f.UserId, f.FriendId });
+              .HasKey(f => new { f.UserId, f.FriendId });
 
             modelBuilder.Entity<Friendship>()
                 .HasOne(f => f.User)
                 .WithMany(u => u.Friendships)
                 .HasForeignKey(f => f.UserId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Friendship>()
                 .HasOne(f => f.Friend)
                 .WithMany(u => u.FriendsOf)
                 .HasForeignKey(f => f.FriendId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Friendship>()
                 .HasIndex(f => new { f.UserId, f.FriendId })
@@ -40,23 +40,35 @@ namespace Message_Api.Data
                 .HasOne(m => m.Sender)
                 .WithMany()
                 .HasForeignKey(m => m.SenderId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Message>()
                 .HasOne(m => m.Reciever)
                 .WithMany()
                 .HasForeignKey(m => m.RecieverId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Message>()
                 .HasOne(m => m.Conversation)
                 .WithMany(c => c.Messages)
                 .HasForeignKey(m => m.ConversationId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Conversation>()
                 .HasIndex(c => new { c.UserAId, c.UserBId })
                 .IsUnique();
+
+            modelBuilder.Entity<Conversation>()
+                .HasOne(c => c.UserA)
+                .WithMany(u => u.ConversationsAsUserA)
+                .HasForeignKey(c => c.UserAId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Conversation>()
+                .HasOne(c => c.UserB)
+                .WithMany(u => u.ConversationsAsUserB)
+                .HasForeignKey(c => c.UserBId)
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

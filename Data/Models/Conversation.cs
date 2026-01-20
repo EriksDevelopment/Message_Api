@@ -8,5 +8,8 @@ public class Conversation
     public int UserAId { get; set; }
     public int UserBId { get; set; }
 
+    public User UserA { get; set; } = null!;
+    public User UserB { get; set; } = null!;
+
     public ICollection<Message> Messages { get; set; } = new List<Message>();
 }
