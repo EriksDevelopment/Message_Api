@@ -18,6 +18,14 @@ namespace Message_Api.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<User>()
+                .HasIndex(u => u.User_Name)
+                .IsUnique();
+
+            modelBuilder.Entity<User>()
+                .HasIndex(u => u.Email)
+                .IsUnique();
+
             modelBuilder.Entity<Friendship>()
               .HasKey(f => new { f.UserId, f.FriendId });
 

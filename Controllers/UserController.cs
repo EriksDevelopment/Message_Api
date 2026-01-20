@@ -64,7 +64,7 @@ namespace Message_Api.Controllers
         }
 
         [Authorize(Roles = "User")]
-        [HttpGet("view-friends")]
+        [HttpGet("friends")]
         public async Task<ActionResult<ViewFriendsResponseDto>> ViewFriends()
         {
             try

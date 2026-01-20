@@ -19,17 +19,21 @@ namespace Message_Api.Controllers
         }
 
         [Authorize(Roles = "User")]
-        [HttpGet("all-messages")]
-        public async Task<ActionResult<AllMessagesResponseDto>> GetRecievedMessages()
+        [HttpGet("conversations/{friendUsername}")]
+        public async Task<IActionResult> GetConversationWithUser([FromQuery] string friendUsername)
         {
             try
             {
-                var user = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+                int currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
 
-                var result = await _messageService.GetRecievedMessagesAsync(user);
+                var messages = await _messageService.GetConversationWithUserAsync(currentUserId, friendUsername);
 
-                _logger.LogInformation("All recieved messages retrieved successfully.");
-                return Ok(result);
+                _logger.LogInformation("Conversation wiht user successfully retrieved.");
+                return Ok(messages);
+            }
+            catch (ArgumentException ex)
+            {
+                return NotFound(ex.Message);
             }
             catch (InvalidOperationException ex)
             {
@@ -37,13 +41,13 @@ namespace Message_Api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Something went wrong while retrievend recieved messages.");
-                return StatusCode(500, "Something went wrong.");
+                _logger.LogError(ex, "Error retrieving conversation with user");
+                return StatusCode(500, "Something went wrong");
             }
         }
 
         [Authorize(Roles = "User")]
-        [HttpPost("send-message")]
+        [HttpPost("message")]
         public async Task<ActionResult<SendMessageResponseDto>> SendMessage(SendMessageRequestDto dto)
         {
             try

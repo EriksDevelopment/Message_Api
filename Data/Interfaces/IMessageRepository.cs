@@ -4,7 +4,7 @@ namespace Message_Api.Data.Interfaces
 {
     public interface IMessageRepository
     {
-        Task<List<Message>> GetMessagesAsync(int receiverId);
+        Task<List<Message>> GetConversationWithUserAsync(int currentUserId, string friendUsername);
         Task SendMessageAsync(Message message);
     }
 }

@@ -25,6 +25,9 @@ namespace Message_Api.Data.Repositories
         public async Task<User?> GetUserByUserNameAsync(string userName) =>
             await _context.Users.FirstOrDefaultAsync(u => u.User_Name == userName);
 
+        public async Task<User?> GetUserByEmailAsync(string email) =>
+            await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+
         public async Task<User?> GetFriendByTagAsync(string tag) =>
             await _context.Users.FirstOrDefaultAsync(u => u.Tag == tag);
 

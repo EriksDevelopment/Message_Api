@@ -26,6 +26,14 @@ namespace Message_Api.Core.Services
                 string.IsNullOrWhiteSpace(dto.Password))
                 throw new ArgumentException("Invalid, fields can't be empty.");
 
+            var userNameExists = await _userRepo.GetUserByUserNameAsync(dto.UserName);
+            if (userNameExists != null)
+                throw new ArgumentException("Username already taken.");
+
+            var emailExists = await _userRepo.GetUserByEmailAsync(dto.Email);
+            if (emailExists != null)
+                throw new ArgumentException("Email already taken.");
+
             var hashedPassword = BCrypt.Net.BCrypt.HashPassword(dto.Password);
 
             var uniqueTag = await _userTagGenerator.GenerateUniqueUserTag();

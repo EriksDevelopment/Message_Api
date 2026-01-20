@@ -10,6 +10,8 @@ namespace Message_Api.Data.Interfaces
 
         Task<User?> GetUserByUserNameAsync(string userName);
 
+        Task<User?> GetUserByEmailAsync(string email);
+
         Task<User?> GetFriendByTagAsync(string tag);
 
         Task<User?> GetUserByIdAsync(int id);
