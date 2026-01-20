@@ -15,5 +15,7 @@ namespace Message_Api.Data.Interfaces
         Task<User?> GetUserByIdAsync(int id);
 
         Task<List<User>> GetFriendsByIdAsync(int userId);
+
+        Task<User> DeleteUserAsync(User user);
     }
 }

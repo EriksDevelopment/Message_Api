@@ -30,4 +30,14 @@ namespace Message_Api.Data.Dtos
     {
         public string UserName { get; set; } = null!;
     }
+
+    public class UserDeleteRequestDto
+    {
+        public string Password { get; set; } = null!;
+    }
+
+    public class UserDeleteResponseDto
+    {
+        public string Message { get; set; } = null!;
+    }
 }

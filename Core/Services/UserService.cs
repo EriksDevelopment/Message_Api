@@ -78,5 +78,23 @@ namespace Message_Api.Core.Services
                 UserName = f.User_Name
             }).ToList();
         }
+
+        public async Task<UserDeleteResponseDto> DeleteUserAsync(UserDeleteRequestDto dto, int id)
+        {
+            if (string.IsNullOrWhiteSpace(dto.Password))
+                throw new ArgumentException("Invalid, fields can't be empty.");
+
+            var user = await _userRepo.GetUserByIdAsync(id);
+
+            if (user == null || !BCrypt.Net.BCrypt.Verify(dto.Password, user.Password))
+                throw new UnauthorizedAccessException("Invalid password.");
+
+            await _userRepo.DeleteUserAsync(user);
+
+            return new UserDeleteResponseDto
+            {
+                Message = $"User '{user.User_Name}' successfully deleted."
+            };
+        }
     }
 }

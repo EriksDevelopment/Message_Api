@@ -9,5 +9,7 @@ namespace Message_Api.Core.Interfaces
         Task<UserLoginResponseDto> LoginUserAsync(UserLoginRequestDto dto);
 
         Task<List<ViewFriendsResponseDto>> ViewFriendsAsync(int userId);
+
+        Task<UserDeleteResponseDto> DeleteUserAsync(UserDeleteRequestDto dto, int id);
     }
 }

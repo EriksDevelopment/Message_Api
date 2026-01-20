@@ -41,5 +41,17 @@ namespace Message_Api.Data.Repositories
 
             return friends;
         }
+
+        public async Task<User> DeleteUserAsync(User user)
+        {
+            var friendships = await _context.Friendships
+                .Where(f => f.UserId == user.Id || f.FriendId == user.Id)
+                .ToListAsync();
+
+            _context.Friendships.RemoveRange(friendships);
+            _context.Users.Remove(user);
+            await _context.SaveChangesAsync();
+            return user;
+        }
     }
 }

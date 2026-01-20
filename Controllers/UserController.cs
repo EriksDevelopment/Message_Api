@@ -86,5 +86,29 @@ namespace Message_Api.Controllers
                 return StatusCode(500, "Something went wrong.");
             }
         }
+
+        [Authorize(Roles = "User")]
+        [HttpDelete("delete-account")]
+        public async Task<ActionResult<UserDeleteResponseDto>> DeleteUser(UserDeleteRequestDto dto)
+        {
+            try
+            {
+                var user = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+
+                var result = await _userService.DeleteUserAsync(dto, user);
+
+                _logger.LogInformation("User deleted successfully.");
+                return Ok(result);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Unauthorized(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Something went wrong while deleting account.");
+                return StatusCode(500, "Something went wrong.");
+            }
+        }
     }
 }
