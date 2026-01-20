@@ -9,5 +9,9 @@ namespace Message_Api.Data.Interfaces
         Task<bool> TagExistsAsync(string tag);
 
         Task<User?> GetUserByUserNameAsync(string userName);
+
+        Task<User?> GetFriendByTagAsync(string tag);
+
+        Task<User?> GetUserByIdAsync(int id);
     }
 }

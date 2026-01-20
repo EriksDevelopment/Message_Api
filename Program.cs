@@ -42,6 +42,8 @@ builder.Services.AddDbContext<MessageDbContext>(options =>
 builder.Services.AddScoped<JwtService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IFriendshipRepository, FriendshipRepository>();
+builder.Services.AddScoped<IFriendshipService, FriendshipService>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -88,5 +90,5 @@ app.UseSwaggerUI(c =>
 });
 app.MapControllers();
 app.UseAuthentication();
-app.UseAuthentication();
+app.UseAuthorization();
 app.Run();
