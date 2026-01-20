@@ -11,10 +11,12 @@ namespace Message_Api.Core.Services
     {
         private readonly IUserRepository _userRepo;
         private readonly JwtService _jwt;
-        public UserService(IUserRepository userRepo, JwtService jwt)
+        private readonly UserTagGeneratorService _userTagGenerator;
+        public UserService(IUserRepository userRepo, JwtService jwt, UserTagGeneratorService userTagGenerator)
         {
             _userRepo = userRepo;
             _jwt = jwt;
+            _userTagGenerator = userTagGenerator;
         }
 
         public async Task<UserRegisterResponseDto> AddUserAsync(UserRegisterRequestDto dto)
@@ -26,8 +28,7 @@ namespace Message_Api.Core.Services
 
             var hashedPassword = BCrypt.Net.BCrypt.HashPassword(dto.Password);
 
-            var tagGenerator = new TagGeneratorService(_userRepo);
-            var uniqueTag = await tagGenerator.GenerateUniqueTag();
+            var uniqueTag = await _userTagGenerator.GenerateUniqueUserTag();
 
             var user = new User
             {

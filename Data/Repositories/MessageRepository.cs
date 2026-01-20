@@ -16,6 +16,7 @@ namespace Message_Api.Data.Repositories
         {
             var message = await _context.Messages
                 .Where(m => m.RecieverId == receiverId)
+                .Include(m => m.Conversation)
                 .Include(m => m.Sender)
                 .OrderByDescending(m => m.Timestamp)
                 .ToListAsync();

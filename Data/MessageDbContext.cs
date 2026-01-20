@@ -11,6 +11,7 @@ namespace Message_Api.Data
         public DbSet<User> Users { get; set; } = null!;
         public DbSet<Friendship> Friendships { get; set; } = null!;
         public DbSet<Message> Messages { get; set; } = null!;
+        public DbSet<Conversation> Conversations { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -46,6 +47,16 @@ namespace Message_Api.Data
                 .WithMany()
                 .HasForeignKey(m => m.RecieverId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Message>()
+                .HasOne(m => m.Conversation)
+                .WithMany(c => c.Messages)
+                .HasForeignKey(m => m.ConversationId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Conversation>()
+                .HasIndex(c => new { c.UserAId, c.UserBId })
+                .IsUnique();
         }
     }
 }

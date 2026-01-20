@@ -2,8 +2,9 @@ namespace Message_Api.Data.Dtos
 {
     public class ViewRecievedMessagesResponseDto
     {
+        public string ConversationTag { get; set; } = null!;
         public DateTime Timestamp { get; set; }
-        public string UserName { get; set; } = null!;
+        public string FromUserName { get; set; } = null!;
         public string Content { get; set; } = null!;
     }
 
