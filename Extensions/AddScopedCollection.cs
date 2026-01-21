@@ -6,9 +6,9 @@ using Message_Api.Core.Services.Jwt;
 using Message_Api.Core.Services.TagGenerator;
 namespace Message_Api.Extensions
 {
-    public static class ServiceCollectionExtensions
+    public static class AddScopedCollection
     {
-        public static IServiceCollection AddDomainServices(this IServiceCollection services)
+        public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             services.AddScoped<JwtService>();
 
