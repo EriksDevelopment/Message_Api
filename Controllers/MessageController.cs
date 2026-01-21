@@ -20,7 +20,7 @@ namespace Message_Api.Controllers
 
         [Authorize(Roles = "User")]
         [HttpGet("conversations/{friendUsername}")]
-        public async Task<IActionResult> GetConversationWithUser([FromQuery] string friendUsername)
+        public async Task<IActionResult> GetConversationWithUser([FromRoute] string friendUsername)
         {
             try
             {
