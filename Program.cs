@@ -13,7 +13,6 @@ builder.Services.AddAuthenticationServices(builder.Configuration);
 builder.Services.AddAuthorization();
 builder.Services.AddApplicationServices();
 builder.Services.AddSwaggerServices();
-builder.Services.AddCorsServices();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -28,7 +27,6 @@ app.UseSwaggerUI(c =>
     c.RoutePrefix = string.Empty;
 });
 app.MapControllers();
-app.UseCors("AllowBlazor");
 app.UseAuthentication();
 app.UseAuthorization();
 app.Run();
