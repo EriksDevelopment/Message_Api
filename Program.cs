@@ -1,11 +1,6 @@
 using System.Text;
-using Message_Api.Core.Interfaces;
-using Message_Api.Core.Services;
-using Message_Api.Core.Services.Jwt;
-using Message_Api.Core.Services.TagGenerator;
 using Message_Api.Data;
-using Message_Api.Data.Interfaces;
-using Message_Api.Data.Repositories;
+using Message_Api.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -40,24 +35,7 @@ builder.Services.AddAuthorization();
 builder.Services.AddDbContext<MessageDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddScoped<JwtService>();
-
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IUserService, UserService>();
-
-builder.Services.AddScoped<IFriendshipRepository, FriendshipRepository>();
-
-builder.Services.AddScoped<IMessageRepository, MessageRepository>();
-builder.Services.AddScoped<IMessageService, MessageService>();
-
-builder.Services.AddScoped<IConversationRepository, ConversationRepository>();
-
-builder.Services.AddScoped<IFriendRequestRepository, FriendRequestRepository>();
-builder.Services.AddScoped<IFriendRequestService, FriendRequestService>();
-
-builder.Services.AddScoped<UserTagGeneratorService>();
-builder.Services.AddScoped<ConversationTagGeneratorService>();
-builder.Services.AddScoped<FriendRequestTagGeneratorService>();
+builder.Services.AddDomainServices();
 
 
 builder.Services.AddControllers();
